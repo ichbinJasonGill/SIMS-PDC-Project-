@@ -13,10 +13,5 @@ namespace SIMS__PDC_Project_.Controllers
             return View();
         }
 
-        public ActionResult Index2()
-        {
-            return View("myIndex");
-        }
-
     }
 }
