@@ -22,12 +22,12 @@ namespace SIMS__PDC_Project_.Models
 
 
         [Required(ErrorMessage = "Please Enter your Arid NO")]
-        [Display(Name = "ARID no")]
+        [Display(Name = "ARID Number")]
         public string ARIDno { get; set; }
 
 
         [Required(ErrorMessage = "Please Enter Pnone No")]
-        [Display(Name = "Phone No")]
+        [Display(Name = "Phone Nubmer")]
         public string phoneNo { get; set; }
 
 
