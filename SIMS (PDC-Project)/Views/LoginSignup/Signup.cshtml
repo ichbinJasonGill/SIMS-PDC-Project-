@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Signup";
+    Layout = "~/Views/Shared/_MinimalLayout.cshtml";
+
+}
+
+
+<style>
+    .clickable-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .clickable-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0.75rem 0.7rem rgb(44 247 153);
+        }
+</style>
+
+<div class="container d-flex flex-wrap justify-content-center align-items-center gap-4" style="margin: 8vw auto;">
+
+    <!-- Headings Section (full width) -->
+    <div class="w-100 text-center mb-4">
+        <h2 class="fs-1 text-success">Signup</h2>
+        <p>Create Account as a</p>
+    </div>
+
+    <!-- Clickable Teacher Card -->
+    <a href="@Url.Action("AdvisorSignup", "LoginSignup")" class="text-decoration-none text-dark">
+        <div class="card text-center p-3 clickable-card" style="width: 200px; cursor: pointer;">
+            <img src="~/Media/Advisor.png" class="card-img-top img-fluid" alt="Advisor" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <p class="card-text fw-bold">Advisor</p>
+            </div>
+        </div>
+    </a>
+
+    <!-- OR Text -->
+    <h2 class="mx-2 mb-0">or</h2>
+
+    <!-- Clickable Student Card -->
+    <a href="@Url.Action("StudentSignup", "LoginSignup")" class="text-decoration-none text-dark">
+        <div class="card text-center p-3 clickable-card" style="width: 200px; cursor: pointer;">
+            <img src="~/Media/Student.png" class="card-img-top img-fluid" alt="Student" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <p class="card-text fw-bold">Student</p>
+            </div>
+        </div>
+    </a>
+
+</div>
+

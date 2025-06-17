@@ -1,0 +1,71 @@
+﻿@model SIMS__PDC_Project_.Models.Student
+
+@{
+    ViewBag.Title = "StudentSignup";
+    Layout = "~/Views/Shared/_MinimalLayout.cshtml";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow p-4 w-100" style="max-width: 500px;">
+
+        <h2 class="text-center mb-4 text-success fs-1">Student Signup</h2>
+
+        @using (Html.BeginForm("StudentSignup", "LoginSignup", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+            <div class="mb-3">
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your full name" } })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.EditorFor(model => model.ARIDno, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your ARID number" } })
+                @Html.ValidationMessageFor(model => model.ARIDno, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.EditorFor(model => model.phoneNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your phone number" } })
+                @Html.ValidationMessageFor(model => model.phoneNo, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your email" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.PasswordFor(model => model.password, new { @class = "form-control", placeholder = "Enter your password" })
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.HiddenFor(model => model.status)
+
+            @*<div class="mb-4">
+                @Html.EditorFor(model => model.SelectedCampus, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your campus" } })
+                @Html.ValidationMessageFor(model => model.SelectedCampus, "", new { @class = "text-danger" })
+            </div>*@
+
+            <div class="mb-4">
+                @*@Html.LabelFor(m => m.SelectedSport, new { @class = "form-label" })*@
+                @Html.DropDownListFor(m => m.Campus, Model.CampusOptions, "-- Select Your Campus --", new { @class = "form-select" })
+                @Html.ValidationMessageFor(m => m.Campus, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="d-flex flex-column">
+                <button type="submit" class="btn btn-success w-100 mb-3">Signup</button>
+                <p class="text-center fs-6">
+                    Already have an account?
+                    @Html.ActionLink("Login", "Login", "LoginSignup")
+                </p>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

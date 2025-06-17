@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Newtonsoft.Json;
+
+namespace SIMS__PDC_Project_.Models
+{
+    public class Student
+    {
+
+
+        public int id { get; set; }
+
+
+        [Required(ErrorMessage = "Please Enter Your Name")]
+        [Display(Name = "Full Name")]
+        public string name { get; set; }
+
+
+        [Required(ErrorMessage = "Please Enter your Arid NO")]
+        [Display(Name = "ARID no")]
+        public string ARIDno { get; set; }
+
+
+        [Required(ErrorMessage = "Please Enter Pnone No")]
+        [Display(Name = "Phone No")]
+        public string phoneNo { get; set; }
+
+
+        [EmailAddress]
+        [Required(ErrorMessage = "Please Enter Email")]
+        [Display(Name = "Email Address")]
+        public string email { get; set; }
+
+
+        [Required(ErrorMessage = "Please Enter Password")]
+        [Display(Name = "Password")]
+        public string password { get; set; }
+
+        [NotMapped]
+        [JsonIgnore]
+        public string status { get; set; }
+
+        [Required(ErrorMessage = "Please Select your Campus")]
+        [Display(Name = "Campus")]
+        public string Campus { get; set; }
+
+        [NotMapped]
+        [JsonIgnore]
+        public List<SelectListItem> CampusOptions { get; set; }
+
+
+
+    }
+}
