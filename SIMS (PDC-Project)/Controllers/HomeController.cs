@@ -13,7 +13,7 @@ namespace SIMS__PDC_Project_.Controllers
             return View();
         }
 
-        public ActionResult Home()
+        public ActionResult Jason()
         {
             return View();
         }
