@@ -143,6 +143,7 @@ namespace SIMS__PDC_Project_.Controllers
             if (success)
             {
                 TempData["Message"] = "User added successfully!";
+                //TempData["Message"] = "User added successfully!";
                 //return RedirectToAction("UserInsert");s
             }
 

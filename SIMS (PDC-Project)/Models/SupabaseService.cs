@@ -23,14 +23,14 @@ namespace SIMS__PDC_Project_.Models
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
         }
 
-        public async Task<List<Student>> GetStudentsAsync()
-        {
-            var response = await _httpClient.GetAsync($"{_supabaseUrl}/rest/v1/students");
-            response.EnsureSuccessStatusCode();
+        //public async Task<List<Student>> GetStudentsAsync()
+        //{
+        //    var response = await _httpClient.GetAsync($"{_supabaseUrl}/rest/v1/students");
+        //    response.EnsureSuccessStatusCode();
 
-            var json = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<List<Student>>(json);
-        }
+        //    var json = await response.Content.ReadAsStringAsync();
+        //    return JsonConvert.DeserializeObject<List<Student>>(json);
+        //}
 
         public async Task<string> AddStudentAsync(Student student)
         {

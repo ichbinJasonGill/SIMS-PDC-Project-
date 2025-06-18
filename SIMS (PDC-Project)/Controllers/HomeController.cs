@@ -13,10 +13,11 @@ namespace SIMS__PDC_Project_.Controllers
             return View();
         }
 
-        public ActionResult Index2()
-        {
-            return View("myIndex");
-        }
+//<<<<<<< HEAD
+        //Hello This is added by Jason Gill at 9:19
 
+//=======
+        // My name is Muhammad Ahsan
+//>>>>>>> 56a94a7d8ca25a94398c860aed2a77d379c86c02
     }
 }
