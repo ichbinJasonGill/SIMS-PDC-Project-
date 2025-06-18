@@ -164,7 +164,6 @@
     </Compile>
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Advisor.cs" />
-    <Compile Include="Models\SupabaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SupabaseDbService.cs" />
   </ItemGroup>
