@@ -23,7 +23,7 @@ namespace SIMS__PDC_Project_.Models
 
         [Required(ErrorMessage = "Please Enter your Arid NO")]
         [Display(Name = "ARID Number")]
-        public string ARIDno { get; set; }
+        public string aridNo { get; set; }
 
 
         [Required(ErrorMessage = "Please Enter Pnone No")]
@@ -39,21 +39,14 @@ namespace SIMS__PDC_Project_.Models
 
         [Required(ErrorMessage = "Please Enter Password")]
         [Display(Name = "Password")]
-        public string password { get; set; }
+        public string pass { get; set; }
 
         [NotMapped]
         [JsonIgnore]
-        public string status { get; set; }
+        public string reqStatus { get; set; }
 
         [Required(ErrorMessage = "Please Select your Campus")]
         [Display(Name = "Campus")]
-        public string Campus { get; set; }
-
-        [NotMapped]
-        [JsonIgnore]
-        public List<SelectListItem> CampusOptions { get; set; }
-
-
-
+        public int campus { get; set; }
     }
 }

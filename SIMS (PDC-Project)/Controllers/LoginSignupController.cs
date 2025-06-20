@@ -15,20 +15,12 @@ namespace SIMS__PDC_Project_.Controllers
 {
     public class LoginSignupController : Controller
     {
-
-        //private readonly SupabaseService _supabaseService = new SupabaseService();
-
-
+        private readonly SupabaseDbService _dbService = new SupabaseDbService();
 
         // GET: LoginSignup
         public ActionResult Index()
         {
             return View();
-        }
-
-        public ActionResult demo()
-        {
-            return View("myModel2");
         }
 
 
@@ -45,9 +37,6 @@ namespace SIMS__PDC_Project_.Controllers
             string Username = username;
             string Password = pass;
 
-
-
-
             if (string.IsNullOrWhiteSpace(Username))
             {
                 ModelState.AddModelError("username", "Username is required.");
@@ -63,102 +52,84 @@ namespace SIMS__PDC_Project_.Controllers
                 return View();
             }
 
-            // Save to database or do something else
-
             return RedirectToAction("Success");
-
-
-            //return View();
         }
 
-
-
+        // Student and Advisor Signup
         public ActionResult Signup()
         {
             return View();
         }
 
-
-
-
-
-
+        // Student Signup
         [HttpGet]
-        public ActionResult AdvisorSignup()
-        {
-            var Advisor = new Advisor
-            {
-                campus = new List<SelectListItem>
-                {
-                    new SelectListItem { Text = "Main Campus", Value = "Main Campus" },
-                    new SelectListItem { Text = "City Campus", Value = "City Campus" }
-                }
-            };
-
-            return View(Advisor);
-        }
-
-        [HttpPost]
-        public ActionResult AdvisorSignup(Advisor a)
+        public ActionResult StudentSignup()
         {
             return View();
         }
 
-
-        [HttpGet]
-        public ActionResult StudentSignup()
-        {
-            var Student = new Student
-            {
-                CampusOptions = new List<SelectListItem>
-                {
-                    new SelectListItem { Text = "Main Campus", Value = "Main Campus" },
-                    new SelectListItem { Text = "City Campus", Value = "City Campus" }
-                },
-
-                status = "Pending"
-            };
-
-            return View(Student);
-        }
-
-        private readonly SupabaseDbService _dbService = new SupabaseDbService();
-
         [HttpPost]
-        
         public async Task<ActionResult> StudentSignup(Student s)
         {
-            string query = $"INSERT INTO \"User\" (name, ARIDno, PhoneNo, Email, Password, Status, Campus) VALUES ('{s.name}', '{s.ARIDno}', '{s.phoneNo}', '{s.email}', '{s.password}', '{s.status}', '{s.Campus}');";
+            string query = @"INSERT INTO student (name, arid_no, email, password, campus_id, phone_no)
+                            VALUES (@name, @aridNo, @email, @pass, @campusId, @phoneNo)";
+
             var parameters = new List<NpgsqlParameter>
             {
                 new NpgsqlParameter("@name", s.name),
-                new NpgsqlParameter("@age", s.ARIDno),
-                new NpgsqlParameter("@age", s.phoneNo),
-                new NpgsqlParameter("@age", s.email),
-                new NpgsqlParameter("@age", s.password),
-                new NpgsqlParameter("@age", s.status),
-                new NpgsqlParameter("@age", s.Campus),
+                new NpgsqlParameter("@aridNo", s.aridNo),
+                new NpgsqlParameter("@email", s.email),
+                new NpgsqlParameter("@pass", s.pass),
+                new NpgsqlParameter("@campusId", s.campus),
+                new NpgsqlParameter("@phoneNo", s.phoneNo),
             };
-            var success = await _dbService.InsertUpdateDelete(query, parameters);
+
+            var (success, errorMessage) = await _dbService.InsertUpdateDelete(query, parameters);
+
             if (success)
             {
                 TempData["Message"] = "User added successfully!";
-                //TempData["Message"] = "User added successfully!";
-                //return RedirectToAction("UserInsert");s
+                return RedirectToAction("Login");
             }
 
-            ViewBag.Error = "Error adding user.";
+            TempData["Message"] = "Error adding user: " + errorMessage;
             return View(s);
-            // Refill dropdown if needed
-            //s.CampusOptions = new List<SelectListItem>
-            //{
-            //    new SelectListItem { Text = "Main Campus", Value = "Main Campus" },
-            //    new SelectListItem { Text = "City Campus", Value = "City Campus" }
-            //};
-
-            //return View(s);
         }
 
+
+        // Advisor Signup
+        [HttpGet]
+        public ActionResult AdvisorSignup()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AdvisorSignup(Advisor a)
+        {
+            string query = @"INSERT INTO advisor (name, email, password, campus_id, phone_no)
+                            VALUES (@name, @email, @pass, @campusId, @phoneNo)";
+
+            var parameters = new List<NpgsqlParameter>
+            {
+                new NpgsqlParameter("@name", a.name),
+                new NpgsqlParameter("@email", a.email),
+                new NpgsqlParameter("@pass", a.pass),
+                new NpgsqlParameter("@campusId", a.campus),
+                new NpgsqlParameter("@phoneNo", a.phoneNo),
+            };
+
+            var (success, errorMessage) = await _dbService.InsertUpdateDelete(query, parameters);
+
+            if (success)
+            {
+                TempData["Message"] = "User added successfully!";
+                return RedirectToAction("Login"); // or wherever you want to go
+            }
+
+            TempData["Message"] = "Error adding user: " + errorMessage;
+            return View(a);
+        }
 
     }
 
