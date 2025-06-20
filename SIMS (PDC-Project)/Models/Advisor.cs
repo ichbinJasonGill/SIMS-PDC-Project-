@@ -5,45 +5,37 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace SIMS__PDC_Project_.Models
 {
     public class Advisor
     {
-
-
         public int id { get; set; }
-
 
         [Required(ErrorMessage = "Please Enter Your Name")]
         [Display(Name = "Full Name")]
         public string name { get; set; }
 
-
         [Required(ErrorMessage = "Please Enter Pnone No")]
         [Display(Name = "Phone No")]
         public string phoneNo { get; set; }
-
 
         [EmailAddress]
         [Required(ErrorMessage = "Please Enter Email")]
         [Display(Name = "Email Address")]
         public string email { get; set; }
 
-
         [Required(ErrorMessage = "Please Enter Password")]
         [Display(Name = "Password")]
-        public string password { get; set; }
+        public string pass { get; set; }
 
-
+        [NotMapped]
+        [JsonIgnore]
+        public string reqStatus { get; set; }
 
         [Required(ErrorMessage = "Please Select your Campus")]
         [Display(Name = "Campus")]
-        public string SelectedCampus { get; set; }
-
-
-        [NotMapped]
-        public List<SelectListItem> campus { get; set; }
-
+        public int campus { get; set; }
     }
 }

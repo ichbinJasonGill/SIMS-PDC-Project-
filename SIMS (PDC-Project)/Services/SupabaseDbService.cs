@@ -17,7 +17,7 @@ namespace Supabase_Example.Services
             _connectionString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
         }
 
-        public async Task<bool> InsertUpdateDelete(string query, List<NpgsqlParameter> parameters)
+        public async Task<(bool isSuccess, string errorMessage)> InsertUpdateDelete(string query, List<NpgsqlParameter> parameters)
         {
             try
             {
@@ -30,14 +30,14 @@ namespace Supabase_Example.Services
                         await cmd.ExecuteNonQueryAsync();
                     }
                 }
-                return true;
+                return (true, null);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Log or handle error here
-                return false;
+                return (false, ex.Message);
             }
         }
+
 
         public async Task<DataTable> Select(string query)
         {
