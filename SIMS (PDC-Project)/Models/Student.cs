@@ -11,8 +11,6 @@ namespace SIMS__PDC_Project_.Models
 {
     public class Student
     {
-
-
         public int id { get; set; }
 
 
@@ -52,8 +50,6 @@ namespace SIMS__PDC_Project_.Models
         [NotMapped]
         [JsonIgnore]
         public List<SelectListItem> CampusOptions { get; set; }
-
-
 
     }
 }

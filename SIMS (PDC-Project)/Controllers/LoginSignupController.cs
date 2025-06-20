@@ -15,11 +15,6 @@ namespace SIMS__PDC_Project_.Controllers
 {
     public class LoginSignupController : Controller
     {
-
-        //private readonly SupabaseService _supabaseService = new SupabaseService();
-
-
-
         // GET: LoginSignup
         public ActionResult Index()
         {

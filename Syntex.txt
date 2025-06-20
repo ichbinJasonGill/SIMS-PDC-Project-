@@ -1,0 +1,42 @@
+let !a no;
+let !b no = 5;
+let !c no;
+let !d no;
+!a = !b * !b;
+!b = (!a + !b - 10) / 2;
+
+in !d;
+let !e no = !d;
+!d = 10 + 20;
+
+out << "The number of variable";
+out << 7;
+
+let !f no = !e + !b - 9;
+let !g no = !f * !f;
+let !h no = !g / 2;
+
+aghar (!a % 2 == 0) {
+    out << "A is even Number";
+}
+magar agar (!g == !f * !f) {
+    out << "g is = square of f =" << !g;
+}
+
+aghar (!h == (!f * !f) / 2) {
+    out << !h << " is a half of f square";
+    out << !f << "=" << !e + !b - 9;
+}
+
+aghar (!h == !g) {
+    out << "h+10";
+    out << !h + 10;
+}
+magar {
+    aghar (!e == 10) {
+        out << 10 + 20;
+        out << 10 * 20;
+    }
+    magar {
+    }
+}
