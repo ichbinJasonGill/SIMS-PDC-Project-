@@ -26,6 +26,9 @@ namespace SIMS__PDC_Project_.Controllers
             List<Advisor> AllAdvisors = new List<Advisor>();
             List<Student> AllStudents = new List<Student>();
 
+
+            var AllUsers = new Student_Teacher();
+
             string studenterror, advisorError;
 
             (AllStudents, studenterror) = await _supabaseClient.GetAsync<Student>("student");
@@ -33,8 +36,7 @@ namespace SIMS__PDC_Project_.Controllers
             if (!string.IsNullOrEmpty(studenterror))
             {
                 TempData["StudentErrorMessage"] = "Error loading student: " + studenterror;
-                return View(new List<Student>());
-                //return View();
+                return View(AllUsers);
                 //return RedirectToAction("Index");
             }
 
@@ -45,12 +47,12 @@ namespace SIMS__PDC_Project_.Controllers
             if (!string.IsNullOrEmpty(advisorError))
             {
                 TempData["AdvisorErrorMessage"] = "Error loading student: " + advisorError;
-                return View(new List<Student>());
-                //return View();
+                return View(AllUsers);
                 //return RedirectToAction("Index");
             }
 
-            var AllUsers = new Student_Teacher
+
+             AllUsers = new Student_Teacher
             {
                 Students = AllStudents,
                 Advisors = AllAdvisors
@@ -58,6 +60,35 @@ namespace SIMS__PDC_Project_.Controllers
 
             return View(AllUsers);
         }
+
+
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+        [HttpPut]
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+
+
+
+
+        [HttpGet]
+        public ActionResult Delete()
+        {
+            return View();
+        }
+        [HttpPut]
+        public ActionResult Delete()
+        {
+            return View();
+        }
+
 
     }
 }

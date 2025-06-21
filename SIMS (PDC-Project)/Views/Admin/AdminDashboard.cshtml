@@ -21,40 +21,45 @@
                     @TempData["StudentErrorMessage"]
                 </div>
             }
-            <table class="table table-bordered table-hover mb-0">
-                <thead class="table-light">
-                    <tr class="text-center">
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>ARID No</th>
-                        <th>Phone No</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Campus</th>
-                        <th colspan="2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var student in Model.Students)
-                    {
-                        <tr class="text-center align-middle">
-                            <td>@student.id</td>
-                            <td>@student.name</td>
-                            <td>@student.aridNo</td>
-                            <td>@student.phoneNo</td>
-                            <td>@student.email</td>
-                            <td>@student.reqStatus</td>
-                            <td>@student.campus</td>
-                            <td class="p-1">
-                                <a href="@Url.Action("Edit", "Student", new { id = student.id })" class="btn btn-sm btn-warning w-100">Edit</a>
-                            </td>
-                            <td class="p-1">
-                                <a href="@Url.Action("Delete", "Student", new { id = student.id })" class="btn btn-sm btn-danger w-100">Delete</a>
-                            </td>
+            else
+            {
+                <table class="table table-bordered table-hover mb-0">
+                    <thead class="table-light">
+                        <tr class="text-center">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>ARID No</th>
+                            <th>Phone No</th>
+
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Campus</th>
+                            <th colspan="2">Actions</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var student in Model.Students)
+                        {
+                            <tr class="text-center align-middle">
+                                <td>@student.id</td>
+                                <td>@student.name</td>
+                                <td>@student.aridNo</td>
+                                <td>@student.phoneNo</td>
+                                <td>@student.email</td>
+                                <td>@student.reqStatus</td>
+                                <td>@student.campus</td>
+                                <td class="p-1">
+                                    <a href="@Url.Action("Edit", "Admin", new { id = student.id })" class="btn btn-sm btn-warning w-100">Edit</a>
+                                    <a href="@Url.Action()
+                                </td>
+                                <td class="p-1">
+                                    <a href="@Url.Action("Delete", "Admin", new { id = student.id })" class="btn btn-sm btn-danger w-100">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
         </div>
     </div>
 
@@ -73,6 +78,8 @@
                     @TempData["AdvisorErrorMessage"]
                 </div>
             }
+            else
+            {
             <table class="table table-bordered table-hover mb-0">
                 <thead class="table-light">
                     <tr class="text-center">
@@ -96,15 +103,16 @@
                             <td>@advisor.reqStatus</td>
                             <td>@advisor.campus</td>
                             <td class="p-1">
-                                <a href="@Url.Action("Edit", "Student", new { id = advisor.id })" class="btn btn-sm btn-warning w-100">Edit</a>
+                                <a href="@Url.Action("Edit", "Admin", new { id = advisor.id })" class="btn btn-sm btn-warning w-100">Edit</a>
                             </td>
                             <td class="p-1">
-                                <a href="@Url.Action("Delete", "Student", new { id = advisor.id })" class="btn btn-sm btn-danger w-100">Delete</a>
+                                <a href="@Url.Action("Delete", "Admin", new { id = advisor.id })" class="btn btn-sm btn-danger w-100">Delete</a>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
+            }
         </div>
     </div>
 
