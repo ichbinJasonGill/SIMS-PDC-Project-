@@ -15,7 +15,12 @@ namespace SIMS__PDC_Project_.Controllers
 {
     public class LoginSignupController : Controller
     {
-        private readonly SupabaseDbService _dbService = new SupabaseDbService();
+        private readonly Supabase_DB_Services _supabaseClient;
+
+        public LoginSignupController()
+        {
+            _supabaseClient = new Supabase_DB_Services();
+        }
 
         // GET: LoginSignup
         public ActionResult Index()
@@ -69,31 +74,21 @@ namespace SIMS__PDC_Project_.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> StudentSignup(Student s)
+        public async Task<ActionResult> StudentSignup(Student student)
         {
-            string query = @"INSERT INTO student (name, arid_no, email, password, campus_id, phone_no)
-                            VALUES (@name, @aridNo, @email, @pass, @campusId, @phoneNo)";
+            if (!ModelState.IsValid)
+                return View();
 
-            var parameters = new List<NpgsqlParameter>
+            var (success, error) = await _supabaseClient.AddAsync(student, "student");
+
+            if (!success)
             {
-                new NpgsqlParameter("@name", s.name),
-                new NpgsqlParameter("@aridNo", s.aridNo),
-                new NpgsqlParameter("@email", s.email),
-                new NpgsqlParameter("@pass", s.pass),
-                new NpgsqlParameter("@campusId", s.campus),
-                new NpgsqlParameter("@phoneNo", s.phoneNo),
-            };
-
-            var (success, errorMessage) = await _dbService.InsertUpdateDelete(query, parameters);
-
-            if (success)
-            {
-                TempData["Message"] = "User added successfully!";
-                return RedirectToAction("Login");
+                TempData["Message"] = "Error adding student: " + error;
+                return View();
             }
 
-            TempData["Message"] = "Error adding user: " + errorMessage;
-            return View(s);
+            TempData["Message"] = "Student added successfully!";
+            return RedirectToAction("Login");
         }
 
 
@@ -105,33 +100,21 @@ namespace SIMS__PDC_Project_.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AdvisorSignup(Advisor a)
+        public async Task<ActionResult> AdvisorSignup(Advisor advisor)
         {
-            string query = @"INSERT INTO advisor (name, email, password, campus_id, phone_no)
-                            VALUES (@name, @email, @pass, @campusId, @phoneNo)";
+            if (!ModelState.IsValid)
+                return View();
 
-            var parameters = new List<NpgsqlParameter>
+            var (success, error) = await _supabaseClient.AddAsync(advisor, "advisor");
+
+            if (!success)
             {
-                new NpgsqlParameter("@name", a.name),
-                new NpgsqlParameter("@email", a.email),
-                new NpgsqlParameter("@pass", a.pass),
-                new NpgsqlParameter("@campusId", a.campus),
-                new NpgsqlParameter("@phoneNo", a.phoneNo),
-            };
-
-            var (success, errorMessage) = await _dbService.InsertUpdateDelete(query, parameters);
-
-            if (success)
-            {
-                TempData["Message"] = "User added successfully!";
-                return RedirectToAction("Login"); // or wherever you want to go
+                TempData["Message"] = "Error adding advisor: " + error;
+                return View();
             }
 
-            TempData["Message"] = "Error adding user: " + errorMessage;
-            return View(a);
+            TempData["Message"] = "Advisor added successfully!";
+            return RedirectToAction("Login");
         }
-
     }
-
-
 }
