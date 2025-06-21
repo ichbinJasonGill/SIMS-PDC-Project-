@@ -1,0 +1,26 @@
+﻿@model SIMS__PDC_Project_.ViewModel.ConfirmDelete
+
+
+
+<div class="container mt-3 mb-3">
+    <div class="card shadow p-4">
+        <h3 class="text-danger text-center">Confirm Deletion</h3>
+        <p class="text-center">
+            Are you sure you want to delete <strong>@Model.ObjectType</strong> <strong>@Model.ObjectName</strong>?
+            @*<strong>@Model.ObjectId</strong>?*@
+        </p>
+
+        @using (Html.BeginForm(Model.ActionName, Model.ControllerName, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("id", Model.ObjectId)
+            @Html.Hidden("type", Model.ObjectType)
+
+            <div class="d-flex justify-content-center gap-3">
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                @*@Html.ActionLink("Cancel", Model.CancelAction, Model.CancelController, null, new { @class = "btn btn-secondary" })*@
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        }
+    </div>
+</div>

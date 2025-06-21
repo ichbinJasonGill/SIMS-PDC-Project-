@@ -157,6 +157,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Supabase DB Services.cs" />
     <Compile Include="Services\SupabaseDbService.cs" />
+    <Compile Include="ViewModel\ConfirmDelete.cs" />
     <Compile Include="ViewModel\Student Teacher.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +227,7 @@
     <Content Include="Views\LoginSignup\StudentSignup.cshtml" />
     <Content Include="Views\Shared\_StudentNavbarLayout.cshtml" />
     <Content Include="Views\Shared\_AdvisorNavbarLayout .cshtml" />
+    <Content Include="Views\Shared\Partial View\ConfirmDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

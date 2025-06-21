@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using SIMS__PDC_Project_.Models;
 using SIMS__PDC_Project_.ViewModel;
 using Supabase_Example.Services;
@@ -13,7 +15,7 @@ namespace SIMS__PDC_Project_.Controllers
     public class AdminController : Controller
     {
 
-        private readonly Supabase_DB_Services _supabaseClient = new Supabase_DB_Services(); 
+        private readonly Supabase_DB_Services _supabaseClient = new Supabase_DB_Services();
 
         // GET: Admin
         public ActionResult Index()
@@ -31,7 +33,9 @@ namespace SIMS__PDC_Project_.Controllers
 
             string studenterror, advisorError;
 
-            (AllStudents, studenterror) = await _supabaseClient.GetAsync<Student>("student");
+            //(AllStudents, studenterror) = await _supabaseClient.GetAsync<Student>("student");
+            (AllStudents, studenterror) = await _supabaseClient.GetByFilterAsync<Student>("student","status", "accepted");
+
 
             if (!string.IsNullOrEmpty(studenterror))
             {
@@ -42,7 +46,8 @@ namespace SIMS__PDC_Project_.Controllers
 
 
 
-            (AllAdvisors, advisorError) = await _supabaseClient.GetAsync<Advisor>("advisor");
+            //(AllAdvisors, advisorError) = await _supabaseClient.GetAsync<Advisor>("advisor");
+            (AllAdvisors, advisorError) = await _supabaseClient.GetByFilterAsync<Advisor>("advisor", "status", "accepted");
 
             if (!string.IsNullOrEmpty(advisorError))
             {
@@ -62,32 +67,71 @@ namespace SIMS__PDC_Project_.Controllers
         }
 
 
-        [HttpGet]
-        public ActionResult Edit()
+
+        public async Task<ActionResult> GetDeleteModal(int id, string type)
         {
-            return View();
+            // Example: fetch name from your data source
+            string name = "";
+            //if (type == "student")
+            //{
+            //    var (student, studenterror) = await _supabaseClient.GetByIdAsync<Student>("student", "student_id", id.ToString());
+            //    name = student.name;
+            //}
+            //if (type == "advisor")
+            //{
+            //    var (advisor, advisorerror) = await _supabaseClient.GetByIdAsync<Advisor>("advisor", "advisor_id", id.ToString());                
+            //    name = advisor.name;
+            //}
+
+            var (user, advisorerror) = await _supabaseClient.GetByIdAsync<Student>(type, $"{type}_id", id.ToString());
+                name = user.name;
+
+            var vm = new ConfirmDelete
+            {
+                ObjectId = id,
+                ObjectName = name,
+                ObjectType = type,
+                ControllerName = "Admin",
+                ActionName = "DeleteConfirmed",
+            };
+
+            return PartialView("~/Views/Shared/Partial View/ConfirmDelete.cshtml", vm);
         }
 
-        [HttpPut]
-        public ActionResult Edit()
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id, string type)
         {
-            return View();
+
+            bool deleted = false;
+            string error = null;
+
+            //if (type == "student")
+            //{
+            //    (deleted, error) = await _supabaseClient.DeleteAsync("student", $"student_id", id.ToString());
+            //}
+            //else if (type == "advisor")
+            //{
+            //    (deleted, error) = await _supabaseClient.DeleteAsync("advisor", "advisor_id", id.ToString());
+            //}
+
+            (deleted, error) = await _supabaseClient.DeleteAsync(type, $"{type}_id", id.ToString());
+
+            //var (deleted, error) = await _supabaseClient.DeleteAsync(type, "student_id", id.ToString());
+
+            if (deleted)
+            {
+                TempData["Message"] = $"{type} deleted successfully.";
+            }
+            else
+            {
+                TempData["Error"] = $"Failed to delete {type}. {error} hjhj";
+            }
+
+            return RedirectToAction("AdminDashboard");
         }
 
-
-
-
-
-        [HttpGet]
-        public ActionResult Delete()
-        {
-            return View();
-        }
-        [HttpPut]
-        public ActionResult Delete()
-        {
-            return View();
-        }
 
 
     }
