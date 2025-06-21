@@ -68,22 +68,12 @@ namespace SIMS__PDC_Project_.Controllers
             return View();
         }
 
-        [HttpPut]
-        public ActionResult Edit()
-        {
-            return View();
-        }
 
 
 
 
 
         [HttpGet]
-        public ActionResult Delete()
-        {
-            return View();
-        }
-        [HttpPut]
         public ActionResult Delete()
         {
             return View();

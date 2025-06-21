@@ -12,42 +12,30 @@ namespace SIMS__PDC_Project_.Models
 {
     public class Student
     {
-<<<<<<< HEAD
-=======
 
         [JsonPropertyName("student_id")]
->>>>>>> jason-branch
         public int id { get; set; }
-
-
 
         [JsonPropertyName("name")]
         [Required(ErrorMessage = "Please Enter Your Name")]
         [Display(Name = "Full Name")]
         public string name { get; set; }
 
-
-
         [JsonPropertyName("arid_no")]
         [Required(ErrorMessage = "Please Enter your Arid NO")]
         [Display(Name = "ARID Number")]
         public string aridNo { get; set; }
-
-
 
         [JsonPropertyName("phone_no")]
         [Required(ErrorMessage = "Please Enter Pnone No")]
         [Display(Name = "Phone Nubmer")]
         public string phoneNo { get; set; }
 
-
-
         [JsonPropertyName("email")]
         [EmailAddress]
         [Required(ErrorMessage = "Please Enter Email")]
         [Display(Name = "Email Address")]
         public string email { get; set; }
-
 
 
         [JsonPropertyName("password")]
@@ -65,15 +53,7 @@ namespace SIMS__PDC_Project_.Models
         [JsonPropertyName("campus_id")]
         [Required(ErrorMessage = "Please Select your Campus")]
         [Display(Name = "Campus")]
-<<<<<<< HEAD
-        public string Campus { get; set; }
-
-        [NotMapped]
-        [JsonIgnore]
-        public List<SelectListItem> CampusOptions { get; set; }
-
-=======
         public int campus { get; set; }
->>>>>>> main
+
     }
 }
