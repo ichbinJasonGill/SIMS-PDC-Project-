@@ -52,7 +52,7 @@ namespace SIMS__PDC_Project_.Controllers
             }
 
 
-             AllUsers = new Student_Teacher
+            AllUsers = new Student_Teacher
             {
                 Students = AllStudents,
                 Advisors = AllAdvisors

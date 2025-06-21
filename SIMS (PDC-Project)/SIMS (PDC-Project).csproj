@@ -148,7 +148,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginSignupController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\TeacherController.cs" />
+    <Compile Include="Controllers\AdvisorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -216,15 +216,16 @@
     <Content Include="Views\Shared\_MinimalLayout.cshtml" />
     <Content Include="Views\LoginSignup\Signup.cshtml" />
     <Content Include="Views\Admin\AdminDashboard.cshtml" />
-    <Content Include="Views\Teacher\TeacherDashboard.cshtml" />
+    <Content Include="Views\Advisor\TeacherDashboard.cshtml" />
     <Content Include="Views\Student\StudentDashboard.cshtml" />
     <Content Include="Views\Admin\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_AdminNavbarLayout.cshtml" />
     <Content Include="Views\Student\_ViewStart.cshtml" />
-    <Content Include="Views\Teacher\_ViewStart.cshtml" />
+    <Content Include="Views\Advisor\_ViewStart.cshtml" />
     <Content Include="Views\LoginSignup\AdvisorSignup.cshtml" />
     <Content Include="Views\LoginSignup\StudentSignup.cshtml" />
     <Content Include="Views\Shared\_StudentNavbarLayout.cshtml" />
+    <Content Include="Views\Shared\_AdvisorNavbarLayout .cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
