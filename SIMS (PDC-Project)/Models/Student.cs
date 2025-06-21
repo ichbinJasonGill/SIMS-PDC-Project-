@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
@@ -11,38 +12,57 @@ namespace SIMS__PDC_Project_.Models
 {
     public class Student
     {
+<<<<<<< HEAD
+=======
+
+        [JsonPropertyName("student_id")]
+>>>>>>> jason-branch
         public int id { get; set; }
 
 
+
+        [JsonPropertyName("name")]
         [Required(ErrorMessage = "Please Enter Your Name")]
         [Display(Name = "Full Name")]
         public string name { get; set; }
 
 
+
+        [JsonPropertyName("arid_no")]
         [Required(ErrorMessage = "Please Enter your Arid NO")]
         [Display(Name = "ARID Number")]
         public string aridNo { get; set; }
 
 
+
+        [JsonPropertyName("phone_no")]
         [Required(ErrorMessage = "Please Enter Pnone No")]
         [Display(Name = "Phone Nubmer")]
         public string phoneNo { get; set; }
 
 
+
+        [JsonPropertyName("email")]
         [EmailAddress]
         [Required(ErrorMessage = "Please Enter Email")]
         [Display(Name = "Email Address")]
         public string email { get; set; }
 
 
+
+        [JsonPropertyName("password")]
         [Required(ErrorMessage = "Please Enter Password")]
         [Display(Name = "Password")]
         public string pass { get; set; }
 
-        [NotMapped]
-        [JsonIgnore]
+
+
+        [JsonPropertyName("status")]
+        //[NotMapped]
         public string reqStatus { get; set; }
 
+
+        [JsonPropertyName("campus_id")]
         [Required(ErrorMessage = "Please Select your Campus")]
         [Display(Name = "Campus")]
 <<<<<<< HEAD
