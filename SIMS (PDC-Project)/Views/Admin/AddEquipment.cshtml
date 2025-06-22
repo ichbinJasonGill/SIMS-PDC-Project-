@@ -1,0 +1,63 @@
+﻿@model SIMS__PDC_Project_.Models.Equipment
+
+@{
+    ViewBag.Title = "Add Equipment";
+    Layout = "~/Views/Shared/_MinimalLayout.cshtml"; // Use same layout as login
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow p-4 w-100" style="max-width: 500px;">
+        <h2 class="text-center mb-4 text-success">Add Equipment</h2>
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+
+        @using (Html.BeginForm("AddEquipment", "Admin", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                @Html.TextBoxFor(model => model.name, new { @class = "form-control", placeholder = "Equipment Name" })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.TextBoxFor(model => model.quantity, new { @class = "form-control", placeholder = "Quantity" })
+                @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.TextBoxFor(model => model.category, new { @class = "form-control", placeholder = "Category" })
+                @Html.ValidationMessageFor(model => model.category, "", new { @class = "text-danger" })
+            </div>
+
+            @*<div class="mb-3">
+                @Html.TextBoxFor(model => model.Status, new { @class = "form-control", placeholder = "Status" })
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>*@
+
+            <div class="mb-3">
+                @Html.TextBoxFor(model => model.campus_id, new { @class = "form-control", placeholder = "Campus" })
+                @Html.ValidationMessageFor(model => model.campus_id, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-success w-100">Add Equipment</button>
+                <p class="text-center mt-3">
+                    @Html.ActionLink("Back to Dashboard", "Equipments", "Admin", null, new { @class = "text-decoration-none text-success fw-bold" })
+                </p>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

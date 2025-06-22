@@ -15,21 +15,21 @@
 
     @if (TempData["ErrorMessage"] != null)
     {
-        <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 end-0 m-3" role="alert" style="top: 100px; z-index: 1055;">
             @TempData["ErrorMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
     else if (TempData["AcceptMessage"] != null)
     {
-        <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
+        <div class="alert alert-success alert-dismissible fade show position-fixed end-0 m-3" role="alert" style="top: 100px; z-index: 1055" ;>
             @TempData["AcceptMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
     else if (TempData["RejectMessage"] != null)
     {
-        <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show position-fixed end-0 m-3" role="alert" style="top: 100px; z-index: 1055" ;>
             @TempData["RejectMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -182,13 +182,13 @@
                 $("#deleteModal").remove();
 
                 var modalHtml = `
-                             <div class="modal fade" id="deleteModal" tabindex="-1">
-                                 <div class="modal-dialog modal-dialog-centered">
-                                     <div class="modal-content">
-                                         ${html}
+                                 <div class="modal fade" id="deleteModal" tabindex="-1">
+                                     <div class="modal-dialog modal-dialog-centered">
+                                         <div class="modal-content">
+                                             ${html}
+                                         </div>
                                      </div>
-                                 </div>
-                             </div>`;
+                                 </div>`;
 
                 $("body").append(modalHtml);
 
@@ -197,6 +197,10 @@
                 modal.show();
             });
         });
+    </script>
+
+    <script>
+        setTimeout(() => document.querySelector('.alert')?.classList.remove('show'), 3000);
     </script>
 }
 

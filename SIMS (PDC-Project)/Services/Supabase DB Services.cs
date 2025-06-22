@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Supabase_Example.Services
 {
@@ -33,7 +34,11 @@ namespace Supabase_Example.Services
         {
             try
             {
-                string json = JsonSerializer.Serialize(data, _jsonOptions);
+                //string json = JsonSerializer.Serialize(data, _jsonOptions);
+                var json = JsonConvert.SerializeObject(data, new JsonSerializerSettings
+                {
+                    DefaultValueHandling = DefaultValueHandling.Ignore
+                });
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync($"/rest/v1/{table}", content);
 
@@ -57,7 +62,7 @@ namespace Supabase_Example.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    var data = JsonSerializer.Deserialize<List<T>>(json, _jsonOptions);
+                    var data = System.Text.Json.JsonSerializer.Deserialize<List<T>>(json, _jsonOptions);
                     return (data, null);
                 }
                 else
@@ -81,7 +86,7 @@ namespace Supabase_Example.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    var list = JsonSerializer.Deserialize<List<T>>(json, _jsonOptions);
+                    var list = System.Text.Json.JsonSerializer.Deserialize<List<T>>(json, _jsonOptions);
 
                     if (list != null && list.Count > 0)
                         return (list[0], null);  // Return first (and usually only) match
@@ -110,7 +115,7 @@ namespace Supabase_Example.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    var list = JsonSerializer.Deserialize<List<T>>(json, _jsonOptions);
+                    var list = System.Text.Json.JsonSerializer.Deserialize<List<T>>(json, _jsonOptions);
 
                     return (list, null); // Could be empty list if no matches
                 }
@@ -132,7 +137,7 @@ namespace Supabase_Example.Services
         {
             try
             {
-                string json = JsonSerializer.Serialize(updatedData, _jsonOptions);
+                string json = System.Text.Json.JsonSerializer.Serialize(updatedData, _jsonOptions);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 var request = new HttpRequestMessage(new HttpMethod("PATCH"), $"/rest/v1/{table}?{matchColumn}=eq.{matchValue}")

@@ -23,7 +23,7 @@ namespace SIMS__PDC_Project_.Controllers
             return View();
         }
 
-        public async Task<ActionResult> AdminDashboard()
+        public async Task<ActionResult> AllUsers()
         {
             List<Advisor> AllAdvisors = new List<Advisor>();
             List<Student> AllStudents = new List<Student>();
@@ -122,14 +122,15 @@ namespace SIMS__PDC_Project_.Controllers
 
             if (deleted)
             {
-                TempData["Message"] = $"{type} deleted successfully.";
+                TempData["SuccessMessage"] = $"{type} deleted successfully.";
             }
             else
             {
                 TempData["Error"] = $"Failed to delete {type}. {error} hjhj";
             }
 
-            return RedirectToAction("AdminDashboard");
+            //return RedirectToAction("AllUsers");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
 
@@ -221,6 +222,95 @@ namespace SIMS__PDC_Project_.Controllers
             return RedirectToAction("UserRequests");
         }
 
+        public async Task<ActionResult> Equipments()
+        {
+            
+            var (equipments, error) = await _supabaseClient.GetAsync<Equipment>("equipment");
+
+            if (!string.IsNullOrEmpty(error))
+                TempData["EquipmentsErrorMessage"] = "Error fetching Equipments: " + error;
+
+            return View(equipments);
+        }
+
+        [HttpGet]
+        public ActionResult AddEquipment()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddEquipment(Equipment equipment)
+        {
+            if (!ModelState.IsValid)
+                return View(equipment);
+
+            var (success, error) = await _supabaseClient.AddAsync(equipment, "equipment");
+            //var (success, error) = await _supabaseClient.AddAsync("equipment", new
+            //{
+            //    name = equipment.name,
+            //    quantity = equipment.quantity,
+            //    category = equipment.category,
+            //    Status = equipment.Status,
+            //    campus = equipment.campus
+            //});
+
+            if (!success)
+            {
+                TempData["ErrorMessage"] = "Error adding Equipment: " + error;
+                return View(equipment);
+            }
+
+            TempData["SuccessMessage"] = "Equipment added successfully!";
+            return RedirectToAction("Equipments");
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult> EditEquipment(string id)
+        {
+
+            var (equipment, error) = await _supabaseClient.GetByIdAsync<Equipment>("equipment", "equipment_id", id);
+
+            if (!string.IsNullOrEmpty(error) || equipment == null)
+            {
+                TempData["ErrorMessage"] = $"Equipment not found.{error}";
+                return RedirectToAction("Equipments");
+            }
+
+            return View(equipment);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditEquipment(Equipment updatedEquipment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(updatedEquipment);
+            }
+
+            //var (success, error) = await _supabaseClient.UpdateAsync("equipment", "equipment_id", updatedEquipment.id.ToString(), updatedEquipment);
+            var (success, error) = await _supabaseClient.UpdateAsync(
+                "equipment",           // table name
+                "equipment_id",        // column to match
+                updatedEquipment.id.ToString(),               // value to match
+                new {
+                    name = updatedEquipment.name,
+                    quantity = updatedEquipment.quantity,
+                    category = updatedEquipment.category,
+                    campus_id = updatedEquipment.campus_id
+                } // only the field to update
+             );
+
+            if (!success)
+            {
+                TempData["ErrorMessage"] = $"Error updating equipment: {error}";
+                return View(updatedEquipment);
+            }
+
+            TempData["SuccessMessage"] = "Equipment updated successfully!";
+            return RedirectToAction("Equipments");
+        }
 
     }
 }

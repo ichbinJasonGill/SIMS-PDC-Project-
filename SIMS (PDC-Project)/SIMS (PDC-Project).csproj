@@ -152,6 +152,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Advisor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -216,7 +217,7 @@
     <Content Include="Views\LoginSignup\Login.cshtml" />
     <Content Include="Views\Shared\_MinimalLayout.cshtml" />
     <Content Include="Views\LoginSignup\Signup.cshtml" />
-    <Content Include="Views\Admin\AdminDashboard.cshtml" />
+    <Content Include="Views\Admin\AllUsers.cshtml" />
     <Content Include="Views\Advisor\TeacherDashboard.cshtml" />
     <Content Include="Views\Student\StudentDashboard.cshtml" />
     <Content Include="Views\Admin\_ViewStart.cshtml" />
@@ -229,6 +230,9 @@
     <Content Include="Views\Shared\_AdvisorNavbarLayout .cshtml" />
     <Content Include="Views\Shared\Partial View\ConfirmDelete.cshtml" />
     <Content Include="Views\Admin\UserRequests.cshtml" />
+    <Content Include="Views\Admin\Equipments.cshtml" />
+    <Content Include="Views\Admin\AddEquipment.cshtml" />
+    <Content Include="Views\Admin\EditEquipment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
