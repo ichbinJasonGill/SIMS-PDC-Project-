@@ -11,6 +11,7 @@ namespace SIMS__PDC_Project_.Models
 {
     public class Advisor
     {
+        [JsonIgnore]
         [JsonPropertyName("advisor_id")]
         public int id { get; set; }
 
