@@ -37,8 +37,13 @@ namespace SIMS__PDC_Project_.Controllers
 
 
         [HttpPost]
-        public ActionResult Login(string username, string pass, string name)
+        public ActionResult Login(string username, string pass, string user)
         {
+            if (user == "student") 
+            { 
+                
+            }
+            else if (user == "advisor") { }
             string Username = username;
             string Password = pass;
 

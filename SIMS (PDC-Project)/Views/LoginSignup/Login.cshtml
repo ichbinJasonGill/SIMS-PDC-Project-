@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_MinimalLayout.cshtml";
 }
@@ -9,41 +8,44 @@
 
         @if (TempData["Message"] != null)
         {
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success text-center" role="alert">
                 @TempData["Message"]
             </div>
         }
 
-        <h2 class="text-center mb-4 text-success fs-1">Login</h2>
+        <h2 class="text-center text-success mb-4">Login</h2>
 
         @using (Html.BeginForm("Login", "LoginSignup", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
         {
             <div class="mb-3">
-                @*@Html.Label("username", "Username", new { @class = "form-label" })*@
-                @Html.TextBox("username", null, new { @class = "form-control w-100", placeholder = "Enter your username" })
+                @Html.TextBox("username", null, new { @class = "form-control", placeholder = "Enter your username" })
                 @Html.ValidationMessage("username", "", new { @class = "text-danger" })
-
             </div>
 
             <div class="mb-3">
-                @*@Html.Label("pass", "Password", new { @class = "form-label" })*@
-                @Html.Password("pass", null, new { @class = "form-control w-100", placeholder = "Enter your password", required = "required" })
+                @Html.Password("pass", null, new { @class = "form-control", placeholder = "Enter your password" })
                 @Html.ValidationMessage("pass", "", new { @class = "text-danger" })
-
-
             </div>
 
-            <div class="d-grid">
-                <button type="submit" class="btn btn-success w-100">Login</button>
-                <p class="text-center fs-6">
-                    Don't have an account
-                    @*<a href="#"> signup </a>*@
-                    @Html.ActionLink("Signup", "Signup", "LoginSignup")
-                </p>
+            <div class="mb-3">
+                <label class="form-label d-block mb-2">Select Role:</label>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButton("user", "student", true, new { @class = "form-check-input", id = "student" })
+                    <label class="form-check-label" for="student">Student</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButton("user", "advisor", false, new { @class = "form-check-input", id = "advisor" })
+                    <label class="form-check-label" for="advisor">Advisor</label>
+                </div>
             </div>
+
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-success">Login</button>
+            </div>
+
+            <p class="text-center">
+                Don't have an account? @Html.ActionLink("Signup", "Signup", "LoginSignup")
+            </p>
         }
     </div>
 </div>
-
-
-
