@@ -16,7 +16,7 @@ namespace SIMS__PDC_Project_
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Admin", action = "Admindashboard", id = UrlParameter.Optional }
+                defaults: new { controller = "Admin", action = "AllUsers", id = UrlParameter.Optional }
             );
         }
     }
