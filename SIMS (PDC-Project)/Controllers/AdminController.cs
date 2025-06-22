@@ -176,6 +176,51 @@ namespace SIMS__PDC_Project_.Controllers
             return View(AllUsers);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> UserRequests(int id, string type, string action)
+        {
+            if (action == "Accept")
+            {
+                var (success, error) = await _supabaseClient.UpdateAsync(
+                type,           // table name
+                $"{type}_id",        // column to match
+                id.ToString(),               // value to match
+                new { status = "accepted" } // only the field to update
+                );
+
+                //var (success, error) = await _supabaseClient.UpdateAsync("Student", "id", student.id.ToString(), student);
+
+                if (!success)
+                {
+                    TempData["ErrorMessage"] = $"Error updating {type}: " + error;
+                    return RedirectToAction("UserRequests");
+                }
+
+                TempData["AcceptMessage"] = $"{type} Accepted!";
+                //return RedirectToAction("UserRequests");
+            }
+            else if (action == "Reject")
+            {
+                var (success, error) = await _supabaseClient.UpdateAsync(
+                type,           // table name
+                $"{type}_id",        // column to match
+                id.ToString(),               // value to match
+                new { status = "rejected" } // only the field to update
+                );
+
+                //var (success, error) = await _supabaseClient.UpdateAsync("Student", "id", student.id.ToString(), student);
+
+                if (!success)
+                {
+                    TempData["ErrorMessage"] = $"Error updating {type}: " + error;
+                    return RedirectToAction("UserRequests");
+                }
+
+                TempData["RejectMessage"] = $"{type} Rejected!";
+            }
+            return RedirectToAction("UserRequests");
+        }
+
 
     }
 }

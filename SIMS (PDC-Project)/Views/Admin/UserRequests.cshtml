@@ -13,17 +13,24 @@
 
     @* ------------------- Students Section -------------------- *@
 
-    @if (TempData["Error"] != null)
+    @if (TempData["ErrorMessage"] != null)
     {
         <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
-            @TempData["Error"]
+            @TempData["ErrorMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
-    else if (TempData["Message"] != null)
+    else if (TempData["AcceptMessage"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
-            @TempData["Message"]
+            @TempData["AcceptMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    else if (TempData["RejectMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
+            @TempData["RejectMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
@@ -67,14 +74,22 @@
                                 <td>@student.email</td>
                                 <td>@student.campus</td>
                                 <td class="p-1">
-                                    <button class="btn btn-sm btn-primary w-100 open-delete-modal" data-id="@student.id" data-type="student">
-                                        Accept
-                                    </button>
+                                    @using (Html.BeginForm("UserRequests", "Admin", FormMethod.Post))
+                                    {
+                                        @Html.Hidden("id", student.id)
+                                        @Html.Hidden("type", "student")
+                                        @Html.Hidden("action", "Accept")
+                                        <button type="submit" class="btn btn-sm btn-primary w-100">Accept</button>
+                                    }
                                 </td>
                                 <td class="p-1">
-                                    <button class="btn btn-sm btn-danger w-100 open-delete-modal" data-id="@student.id" data-type="student">
-                                        Reject
-                                    </button>
+                                    @using (Html.BeginForm("UserRequests", "Admin", FormMethod.Post))
+                                    {
+                                        @Html.Hidden("id", student.id)
+                                        @Html.Hidden("type", "student")
+                                        @Html.Hidden("action", "Reject")
+                                        <button type="submit" class="btn btn-sm btn-danger w-100">Reject</button>
+                                    }
                                 </td>
                             </tr>
                         }
@@ -126,14 +141,22 @@
                                 <td>@advisor.email</td>
                                 <td>@advisor.campus</td>
                                 <td class="p-1">
-                                    <button class="btn btn-sm btn-primary w-100 open-delete-modal" data-id="@advisor.id" data-type="advisor">
-                                        Accept
-                                    </button>
+                                    @using (Html.BeginForm("UserRequests", "Admin", FormMethod.Post))
+                                    {
+                                        @Html.Hidden("id", advisor.id)
+                                        @Html.Hidden("type", "advisor")
+                                        @Html.Hidden("action", "Accept")
+                                        <button type="submit" class="btn btn-sm btn-primary w-100">Accept</button>
+                                    }
                                 </td>
                                 <td class="p-1">
-                                    <button class="btn btn-sm btn-danger w-100 open-delete-modal" data-id="@advisor.id" data-type="advisor">
-                                        Reject
-                                    </button>
+                                    @using (Html.BeginForm("UserRequests", "Admin", FormMethod.Post))
+                                    {
+                                        @Html.Hidden("id", advisor.id)
+                                        @Html.Hidden("type", "advisor")
+                                        @Html.Hidden("action", "Reject")
+                                        <button type="submit" class="btn btn-sm btn-danger w-100">Reject</button>
+                                    }
                                 </td>
                             </tr>
                         }
