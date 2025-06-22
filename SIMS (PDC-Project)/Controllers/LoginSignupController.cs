@@ -37,13 +37,61 @@ namespace SIMS__PDC_Project_.Controllers
 
 
         [HttpPost]
-        public ActionResult Login(string username, string pass, string user)
+        public async Task<ActionResult> Login(string username, string pass, string user)
         {
+            // For student
             if (user == "student") 
-            { 
+            {
+                var (student, message) = await _supabaseClient.LoginAsync<Student>(
+                    "student",
+                    "name",
+                    username,
+                    "password",
+                    pass
+                );
+
                 
+                if (!string.IsNullOrEmpty(message))
+                {
+                    TempData["Message"] = message;
+                    return View("");
+                }
+                else 
+                {
+                    TempData["Message"] = "Student Found";
+                    return View(); 
+                }
             }
-            else if (user == "advisor") { }
+
+            // For advisor
+            else if (user == "advisor") 
+            {
+                var (advisor, message) = await _supabaseClient.LoginAsync<Advisor>(
+                    "advisor",
+                    "name",
+                    username,
+                    "password",
+                    pass
+                );
+
+
+                if (!string.IsNullOrEmpty(message))
+                {
+                    TempData["Message"] = message;
+                    return View("");
+                }
+                else
+                {
+                    TempData["Message"] = "Advisor Found";
+                    return View();
+                }
+            }
+
+            // For admin
+            else if (user == "admin") 
+            { 
+            
+            }
             string Username = username;
             string Password = pass;
 
@@ -73,8 +121,20 @@ namespace SIMS__PDC_Project_.Controllers
 
         // Student Signup
         [HttpGet]
-        public ActionResult StudentSignup()
+        public async Task<ActionResult> StudentSignup()
         {
+            var campusData = await GetCampus();
+
+            var campusList = new List<SelectListItem>();
+            foreach (var campus in campusData)
+            {
+                campusList.Add(new SelectListItem
+                {
+                    Value = campus.id.ToString(),   // Replace 'id' with actual ID property
+                    Text = campus.name              // Replace 'name' with actual name property
+                });
+            }
+            ViewBag.CampusList = campusList;
             return View();
         }
 
@@ -99,8 +159,20 @@ namespace SIMS__PDC_Project_.Controllers
 
         // Advisor Signup
         [HttpGet]
-        public ActionResult AdvisorSignup()
+        public async Task<ActionResult> AdvisorSignup()
         {
+            var campusData = await GetCampus();
+
+            var campusList = new List<SelectListItem>();
+            foreach (var campus in campusData)
+            {
+                campusList.Add(new SelectListItem
+                {
+                    Value = campus.id.ToString(),   // Replace 'id' with actual ID property
+                    Text = campus.name              // Replace 'name' with actual name property
+                });
+            }
+            ViewBag.CampusList = campusList;
             return View();
         }
 
@@ -121,5 +193,19 @@ namespace SIMS__PDC_Project_.Controllers
             TempData["Message"] = "Advisor added successfully!";
             return RedirectToAction("Login");
         }
+
+        public async Task<List<Campus>> GetCampus()
+        {
+            var (campusList, message) = await _supabaseClient.GetAsync<Campus>("campus");
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                Console.WriteLine("Error fetching campus data: " + message);
+                return new List<Campus>();
+            }
+
+            return campusList;
+        }
+
     }
 }
