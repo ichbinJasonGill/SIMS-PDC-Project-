@@ -133,6 +133,49 @@ namespace SIMS__PDC_Project_.Controllers
         }
 
 
+        public async Task<ActionResult> UserRequests()
+        {
+            List<Advisor> AllAdvisors = new List<Advisor>();
+            List<Student> AllStudents = new List<Student>();
+
+
+            var AllUsers = new Student_Teacher();
+
+            string studenterror, advisorError;
+
+            //(AllStudents, studenterror) = await _supabaseClient.GetAsync<Student>("student");
+            (AllStudents, studenterror) = await _supabaseClient.GetByFilterAsync<Student>("student", "status", "pending");
+
+
+            if (!string.IsNullOrEmpty(studenterror))
+            {
+                TempData["StudentErrorMessage"] = "Error loading student: " + studenterror;
+                return View(AllUsers);
+                //return RedirectToAction("Index");
+            }
+
+
+
+            //(AllAdvisors, advisorError) = await _supabaseClient.GetAsync<Advisor>("advisor");
+            (AllAdvisors, advisorError) = await _supabaseClient.GetByFilterAsync<Advisor>("advisor", "status", "pending");
+
+            if (!string.IsNullOrEmpty(advisorError))
+            {
+                TempData["AdvisorErrorMessage"] = "Error loading student: " + advisorError;
+                return View(AllUsers);
+                //return RedirectToAction("Index");
+            }
+
+
+            AllUsers = new Student_Teacher
+            {
+                Students = AllStudents,
+                Advisors = AllAdvisors
+            };
+
+            return View(AllUsers);
+        }
+
 
     }
 }

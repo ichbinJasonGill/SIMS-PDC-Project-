@@ -3,13 +3,13 @@
 
 
 @{
-    ViewBag.Title = "AdminDashboard";
+    ViewBag.Title = "UserRequests";
 }
 
 <br />
 
 <div class="container mt-4">
-    <h1 class="text-center mb-4 text-success">All Users</h1>
+    <h1 class="text-center mb-4 text-success">User Requests</h1>
 
     @* ------------------- Students Section -------------------- *@
 
@@ -67,8 +67,13 @@
                                 <td>@student.email</td>
                                 <td>@student.campus</td>
                                 <td class="p-1">
+                                    <button class="btn btn-sm btn-primary w-100 open-delete-modal" data-id="@student.id" data-type="student">
+                                        Accept
+                                    </button>
+                                </td>
+                                <td class="p-1">
                                     <button class="btn btn-sm btn-danger w-100 open-delete-modal" data-id="@student.id" data-type="student">
-                                        Delete
+                                        Reject
                                     </button>
                                 </td>
                             </tr>
@@ -121,8 +126,13 @@
                                 <td>@advisor.email</td>
                                 <td>@advisor.campus</td>
                                 <td class="p-1">
+                                    <button class="btn btn-sm btn-primary w-100 open-delete-modal" data-id="@advisor.id" data-type="advisor">
+                                        Accept
+                                    </button>
+                                </td>
+                                <td class="p-1">
                                     <button class="btn btn-sm btn-danger w-100 open-delete-modal" data-id="@advisor.id" data-type="advisor">
-                                        Delete
+                                        Reject
                                     </button>
                                 </td>
                             </tr>
