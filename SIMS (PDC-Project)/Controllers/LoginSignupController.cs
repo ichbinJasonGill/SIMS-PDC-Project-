@@ -56,10 +56,22 @@ namespace SIMS__PDC_Project_.Controllers
                     TempData["Message"] = message;
                     return View("");
                 }
-                else 
+                else if (student.reqStatus == "pending")
                 {
+                    TempData["Message"] = "Your request is pending approval.";
+                    return View();
+                }
+                else if (student.reqStatus == "rejected")
+                {
+                    TempData["Message"] = "Your request has been rejected.";
+                    return View();
+                }
+                else
+                {
+                    //Session["StudentId"] = student.id; // Store student ID in session
+                    //Session["StudentName"] = student.name; // Store student name in session
                     TempData["Message"] = "Student Found";
-                    return View(); 
+                    return View();
                 }
             }
 
