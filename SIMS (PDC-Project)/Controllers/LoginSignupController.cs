@@ -9,6 +9,7 @@ using Npgsql;
 using System.Web.Services;
 using SIMS__PDC_Project_.Models;
 using Supabase_Example.Services;
+using Microsoft.Ajax.Utilities;
 
 
 namespace SIMS__PDC_Project_.Controllers
@@ -136,8 +137,8 @@ namespace SIMS__PDC_Project_.Controllers
         public async Task<ActionResult> StudentSignup()
         {
             var campusData = await GetCampus();
-
             var campusList = new List<SelectListItem>();
+
             foreach (var campus in campusData)
             {
                 campusList.Add(new SelectListItem
@@ -146,9 +147,12 @@ namespace SIMS__PDC_Project_.Controllers
                     Text = campus.name              // Replace 'name' with actual name property
                 });
             }
+
             ViewBag.CampusList = campusList;
+
             return View();
         }
+
 
         [HttpPost]
         public async Task<ActionResult> StudentSignup(Student student)
@@ -160,7 +164,7 @@ namespace SIMS__PDC_Project_.Controllers
 
             if (!success)
             {
-                TempData["Message"] = "Error adding student: " + error;
+                TempData["ErrorMessage"] = "Error adding student: " + error;
                 return View();
             }
 
@@ -198,7 +202,7 @@ namespace SIMS__PDC_Project_.Controllers
 
             if (!success)
             {
-                TempData["Message"] = "Error adding advisor: " + error;
+                TempData["ErrorMessage"] = "Error adding student: " + error;
                 return View();
             }
 

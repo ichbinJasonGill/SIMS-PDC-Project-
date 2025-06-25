@@ -55,5 +55,9 @@ namespace SIMS__PDC_Project_.Models
         [Display(Name = "Campus")]
         public int campus { get; set; }
 
+
+        //[System.Text.Json.Serialization.JsonIgnore]
+        //public List<SelectListItem> CampusList { get; set; }
+
     }
 }

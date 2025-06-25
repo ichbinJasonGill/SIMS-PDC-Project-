@@ -3,12 +3,6 @@
 @{
     ViewBag.Title = "StudentSignup";
     Layout = "~/Views/Shared/_MinimalLayout.cshtml";
-
-    var campusList = new List<SelectListItem>
-    {
-        new SelectListItem { Value = "101", Text = "Mian Campus" },
-        new SelectListItem { Value = "102", Text = "City Campus" }
-    };
 }
 
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
@@ -68,7 +62,7 @@
                     @Html.ActionLink("Login", "Login", "LoginSignup")
                 </p>
             </div>
-        }
+         }
     </div>
 </div>
 

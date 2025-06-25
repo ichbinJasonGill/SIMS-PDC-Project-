@@ -6,14 +6,20 @@
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="card shadow p-4 w-100" style="max-width: 400px;">
 
+        <h2 class="text-center text-success mb-4">Login</h2>
+
         @if (TempData["Message"] != null)
         {
             <div class="alert alert-success text-center" role="alert">
                 @TempData["Message"]
             </div>
         }
-
-        <h2 class="text-center text-success mb-4">Login</h2>
+        else if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                @TempData["ErrorMessage"]
+            </div>
+        }
 
         @using (Html.BeginForm("Login", "LoginSignup", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
         {
