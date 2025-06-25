@@ -13,17 +13,24 @@
     <h1 class="text-center mb-4 text-success">Equipments</h1>
 
 
-    @if (TempData["Error"] != null)
+    @if (TempData["ErrorMessage"] != null)
     {
         <div class="alert alert-danger alert-dismissible fade show position-fixed end-0 m-3" role="alert" style="top: 100px; z-index: 1055" ;>
-            @TempData["Error"]
+            @TempData["ErrorMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
     else if (TempData["SuccessMessage"] != null)
     {
-        <div class="alert alert-success alert-dismissible fade show position-fixed end-0 m-3" role="alert" style="top: 100px; z-index: 1055" ;>
+        <div class="alert alert-danger alert-dismissible fade show position-fixed end-0 m-3" role="alert" style="top: 100px; z-index: 1055" ;>
             @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    else if (TempData["EquipmentSuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show position-fixed end-0 m-3" role="alert" style="top: 100px; z-index: 1055" ;>
+            @TempData["EquipmentSuccessMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }

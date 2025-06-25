@@ -11,24 +11,27 @@
 <div class="container mt-4">
     <h1 class="text-center mb-4 text-success">All Users</h1>
 
-    @* ------------------- Students Section -------------------- *@
-
-    @if (TempData["Error"] != null)
+    @if (TempData["ErrorMessage"] != null)
     {
         <div class="alert alert-danger alert-dismissible fade show position-fixed end-0 m-3" role="alert" style="top: 100px; z-index: 1055" ;>
-            @TempData["Error"]
+            @TempData["ErrorMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
-    else if (TempData["Message"] != null)
+    else if (TempData["SuccessMessage"] != null)
     {
         <div class="alert alert-danger alert-dismissible fade show position-fixed end-0 m-3" role="alert" style="top: 100px; z-index: 1055" ;>
-            @TempData["Message"]
+            @TempData["SuccessMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
 
     <br />
+
+
+
+
+    @* ------------------- Students Section -------------------- *@
 
     <div class="card shadow">
         <div class="card-header bg-success text-white">

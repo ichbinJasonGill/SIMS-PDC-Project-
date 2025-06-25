@@ -126,7 +126,7 @@ namespace SIMS__PDC_Project_.Controllers
             }
             else
             {
-                TempData["Error"] = $"Failed to delete {type}. {error} hjhj";
+                TempData["ErrorMessage"] = $"Failed to delete {type}. {error} hjhj";
             }
 
             //return RedirectToAction("AllUsers");
@@ -261,7 +261,7 @@ namespace SIMS__PDC_Project_.Controllers
                 return View(equipment);
             }
 
-            TempData["SuccessMessage"] = "Equipment added successfully!";
+            TempData["EquipmentSuccessMessage"] = "Equipment added successfully!";
             return RedirectToAction("Equipments");
         }
 
@@ -308,7 +308,7 @@ namespace SIMS__PDC_Project_.Controllers
                 return View(updatedEquipment);
             }
 
-            TempData["SuccessMessage"] = "Equipment updated successfully!";
+            TempData["EquipmentSuccessMessage"] = "Equipment updated successfully!";
             return RedirectToAction("Equipments");
         }
 
