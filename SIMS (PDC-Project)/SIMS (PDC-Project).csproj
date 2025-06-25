@@ -144,11 +144,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdvisorController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginSignupController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\AdvisorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -218,21 +218,22 @@
     <Content Include="Views\Shared\_MinimalLayout.cshtml" />
     <Content Include="Views\LoginSignup\Signup.cshtml" />
     <Content Include="Views\Admin\AllUsers.cshtml" />
-    <Content Include="Views\Advisor\TeacherDashboard.cshtml" />
-    <Content Include="Views\Student\StudentDashboard.cshtml" />
     <Content Include="Views\Admin\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_AdminNavbarLayout.cshtml" />
-    <Content Include="Views\Student\_ViewStart.cshtml" />
-    <Content Include="Views\Advisor\_ViewStart.cshtml" />
     <Content Include="Views\LoginSignup\AdvisorSignup.cshtml" />
     <Content Include="Views\LoginSignup\StudentSignup.cshtml" />
     <Content Include="Views\Shared\_StudentNavbarLayout.cshtml" />
-    <Content Include="Views\Shared\_AdvisorNavbarLayout .cshtml" />
     <Content Include="Views\Shared\Partial View\ConfirmDelete.cshtml" />
     <Content Include="Views\Admin\UserRequests.cshtml" />
     <Content Include="Views\Admin\Equipments.cshtml" />
     <Content Include="Views\Admin\AddEquipment.cshtml" />
     <Content Include="Views\Admin\EditEquipment.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Student\_ViewStart.cshtml" />
+    <Content Include="Views\Advisor\Index.cshtml" />
+    <Content Include="Views\Advisor\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_AdvisorNavbarLayout.cshtml" />
+    <Content Include="Views\Student\Equipments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

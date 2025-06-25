@@ -1,0 +1,27 @@
+﻿<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 m-2">
+    @foreach (var equipment in Model)
+    {
+        <div class="col">
+            <div class="card shadow h-100">
+                <img src="~/Content/images/default-equipment.png" class="card-img-top" alt="Equipment Image" style="height: 200px; object-fit: cover;">
+
+                <div class="card-body">
+                    <h5 class="card-title text-success">@equipment.name</h5>
+                    <p class="card-text">
+                        <strong>Quantity:</strong> @equipment.quantity <br />
+                        <strong>Category:</strong> @equipment.category <br />
+                        <strong>Status:</strong> @equipment.Status <br />
+                        <strong>Campus:</strong> @equipment.campus_id
+                    </p>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <form method="post" action="@Url.Action("EditEquipment", "Admin")" class="w-100">
+                        @*@Html.Hidden("id", equipment.id)*@
+                        <button type="submit" class="btn btn-sm btn-secondary w-100">Reqhjuest</button>
+                    </form>
+                </div>
+
+                </div>
+            </div>
+    }
+</div>

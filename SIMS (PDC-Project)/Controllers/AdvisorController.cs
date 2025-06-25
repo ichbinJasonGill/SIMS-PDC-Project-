@@ -8,7 +8,7 @@ namespace SIMS__PDC_Project_.Controllers
 {
     public class AdvisorController : Controller
     {
-        // GET: Teacher
+        // GET: Advisor
         public ActionResult Index()
         {
             return View();

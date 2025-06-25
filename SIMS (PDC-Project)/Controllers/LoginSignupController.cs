@@ -32,7 +32,7 @@ namespace SIMS__PDC_Project_.Controllers
 
 
         [HttpPost]
-        public ActionResult Login(string username, string pass, string name)
+        public ActionResult Login(string username, string pass)
         {
             string Username = username;
             string Password = pass;
@@ -44,7 +44,7 @@ namespace SIMS__PDC_Project_.Controllers
 
             if (string.IsNullOrWhiteSpace(Password))
             {
-                ModelState.AddModelError("pass", "Email is required.");
+                ModelState.AddModelError("pass", "Password is required.");
             }
 
             if (!ModelState.IsValid)
