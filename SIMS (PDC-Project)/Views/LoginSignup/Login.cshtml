@@ -3,6 +3,13 @@
     Layout = "~/Views/Shared/_MinimalLayout.cshtml";
 }
 
+<style>
+    .form-check-input[type="radio"] {
+        accent-color: #28a745 !important; /* Force green color */
+    }
+</style>
+
+
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="card shadow p-4 w-100" style="max-width: 400px;">
 
@@ -35,6 +42,7 @@
 
             <div class="mb-3">
                 <label class="form-label d-block mb-2">Select Role:</label>
+
                 <div class="form-check form-check-inline">
                     @Html.RadioButton("user", "student", true, new { @class = "form-check-input", id = "student" })
                     <label class="form-check-label" for="student">Student</label>
@@ -48,6 +56,7 @@
                     <label class="form-check-label" for="admin">Admin</label>
                 </div>
             </div>
+
 
             <div class="d-grid mb-3">
                 <button type="submit" class="btn btn-success">Login</button>
