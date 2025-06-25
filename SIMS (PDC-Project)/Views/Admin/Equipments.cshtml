@@ -1,0 +1,128 @@
+﻿@*@model SIMS__PDC_Project_.Models.Equipment*@
+@model IEnumerable<SIMS__PDC_Project_.Models.Equipment>
+
+
+@{
+    ViewBag.Title = "Equipments";
+}
+
+
+<br />
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4 text-success">Equipments</h1>
+
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show position-fixed end-0 m-3" role="alert" style="top: 100px; z-index: 1055" ;>
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    else if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show position-fixed end-0 m-3" role="alert" style="top: 100px; z-index: 1055" ;>
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <br />
+
+    <div class="card shadow">
+
+
+        <!-- Positioned ActionLink -->
+        <div style="position: absolute; top: -40px; right: 10px;">
+            @Html.ActionLink("+ Add New Equipment", "AddEquipment", "Admin", null, new { @class = "btn btn-success btn-sm fw-bold" })
+        </div>
+
+        <!-- Card Header -->
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">All Equipments</h4>
+        </div>
+
+        <div class="card-body p-0" style="max-height: 300px; overflow-y: auto;">
+            @if (TempData["EquipmentsErrorMessage"] != null)
+            {
+                <div class="alert alert-danger m-3">
+                    @TempData["EquipmentsErrorMessage"]
+                </div>
+            }
+            else
+            {
+                <table class="table table-bordered table-hover mb-0">
+                    <thead class="table-light">
+                        <tr class="text-center">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Campus</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var equipment in Model)
+                        {
+                            <tr class="text-center align-middle">
+                                <td>@equipment.id</td>
+                                <td>@equipment.name</td>
+                                <td>@equipment.quantity</td>
+                                <td>@equipment.category</td>
+                                <td>@equipment.Status</td>
+                                <td>@equipment.campus_id</td>
+                                <td class="p-1">
+                                    @Html.ActionLink("Edit", "EditEquipment", "Admin", new { id = equipment.id }, new { @class = "btn btn-sm btn-warning w-100" })
+                                </td>
+                                <td class="p-1">
+                                    <button class="btn btn-sm btn-danger w-100 open-delete-modal" data-id="@equipment.id" data-type="equipment">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).on("click", ".open-delete-modal", function () {
+            var id = $(this).data("id");
+            var type = $(this).data("type");
+
+            $.get("/Admin/GetDeleteModal", { id: id, type: type }, function (html) {
+                // Clean up any existing modal
+                $("#deleteModal").remove();
+
+                var modalHtml = `
+                                     <div class="modal fade" id="deleteModal" tabindex="-1">
+                                         <div class="modal-dialog modal-dialog-centered">
+                                             <div class="modal-content">
+                                                 ${html}
+                                             </div>
+                                         </div>
+                                     </div>`;
+
+                $("body").append(modalHtml);
+
+                // Now initialize and show modal
+                var modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+                modal.show();
+            });
+        });
+    </script>
+
+    <script>
+        setTimeout(() => document.querySelector('.alert')?.classList.remove('show'), 3000);
+    </script>
+}
+
+

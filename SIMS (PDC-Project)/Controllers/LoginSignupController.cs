@@ -64,7 +64,7 @@ namespace SIMS__PDC_Project_.Controllers
                 }
                 else if (student.reqStatus == "rejected")
                 {
-                    TempData["Message"] = "Your request has been rejected.";
+                    TempData["ErrorMessage"] = "Your request has been rejected.";
                     return View();
                 }
                 else
@@ -90,7 +90,7 @@ namespace SIMS__PDC_Project_.Controllers
 
                 if (!string.IsNullOrEmpty(message))
                 {
-                    TempData["Message"] = message;
+                    TempData["ErrorMessage"] = message;
                     return View("");
                 }
                 else
@@ -102,8 +102,22 @@ namespace SIMS__PDC_Project_.Controllers
 
             // For admin
             else if (user == "admin") 
-            { 
-            
+            {
+                var (advisor, message) = await _supabaseClient.LoginAsync<Advisor>(
+                    "admin",
+                    "name",
+                    username,
+                    "Password",
+                    pass
+                );
+
+
+                if (!string.IsNullOrEmpty(message))
+                {
+                    TempData["ErrorMessage"] = message;
+                    return View("");
+                }
+
             }
             string Username = username;
             string Password = pass;
@@ -123,7 +137,7 @@ namespace SIMS__PDC_Project_.Controllers
                 return View();
             }
 
-            return RedirectToAction("Success");
+            return RedirectToAction("AllUsers", "Admin");
         }
 
         // Student and Advisor Signup
